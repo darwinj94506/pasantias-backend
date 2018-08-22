@@ -9,5 +9,4 @@ router.get('/', function(req, res, next) {
 
 router.get('/pruebas-del-controlador',UsuarioController.pruebas);
 
-
 module.exports = router;

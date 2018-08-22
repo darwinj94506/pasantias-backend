@@ -5,7 +5,7 @@
 //  var fs =require('fs');
  var path=require('path');
 //modelos
-var User =require('../models/usuario.model');
+// var User =require('../models/usuario.model');
 //servico
 // var jwt=require('../services/jwt');
 //acciones

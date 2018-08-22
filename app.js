@@ -14,6 +14,8 @@ var app = express();
 
 //cargar rutas
 var usuario_routes=require('./routes/usuario.route');
+var indexRouter=require('./index');
+
 
 
 // view engine setup
