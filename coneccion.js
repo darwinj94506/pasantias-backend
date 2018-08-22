@@ -27,15 +27,11 @@ function getAllPuppies(req, res, next) {
 
   function createPuppy(req, res, next) {
     console.log([req.body.idtipo,req.body.nombre,req.body.estado,req.body.fecha]);
-    var SQL = 'select * from  into tipo(idtipo, nombre, estado, fecha) values($1, $2, $3, $4);';
-    db.any(SQL, [req.body.idtipo,req.body.nombre,req.body.estado,req.body.fecha])
+    var SQL = 'select * from  fun_ime_tipo($1, $2, $3);';
+    db.any(SQL, [req.body.idtipo,req.body.nombre,req.body.opcion])
     .then(function (data) {
       res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Se inserto'
-        });
+        .json(data);
     })
     .catch(function (err) {
       return next(err);
@@ -46,8 +42,8 @@ function getAllPuppies(req, res, next) {
 
 module.exports = {
   getAllPuppies: getAllPuppies,
-//   getSinglePuppy: getSinglePuppy,
-  createPuppy: createPuppy,
-//   updatePuppy: updatePuppy,
-//   removePuppy: removePuppy
+// getSinglePuppy: getSinglePuppy,
+   createPuppy: createPuppy,
+// updatePuppy: updatePuppy,
+// removePuppy: removePuppy
 };
