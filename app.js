@@ -6,14 +6,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var usersRouter = require('./routes/usuario.route');
+
 
 var bodyParser=require('body-parser');
 
 var app = express();
 
 //cargar rutas
-var usuario_routes=require('./routes/usuario.route');
+
 var indexRouter=require('./index');
 
 
@@ -41,7 +41,6 @@ app.use((req,res,next)=>{
 
 //------
 app.use('/', indexRouter);
-app.use('/users', usuario_routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
