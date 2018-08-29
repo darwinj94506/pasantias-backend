@@ -6,7 +6,7 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = "postgres://postgres:darwin123@localhost:5432/inventariodb";
+var connectionString = "postgres://postgres:root@PostgreSQL:5432/inventariodb";
 var db = pgp(connectionString);
 
 // add query functions
