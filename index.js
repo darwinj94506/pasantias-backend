@@ -4,11 +4,19 @@ var router = express.Router();
 var db = require('./coneccion');
 
 
-router.get('/api/puppies', db.getAllPuppies);
+// router.get('/api/getTipos', db.getTipos);
+//np: numero de pagina , pa:pagina actual 
+router.post('/api/getTipos', db.getTiposPaginacion); 
+
+router.post('/api/getTotalTipos', db.getTotalTipos); 
+router.get('/api/getTipo/:id', db.getTipo); 
+
+
 // router.get('/api/puppies/:id', db.getSinglePuppy);
-router.post('/api/puppies', db.createPuppy);
+router.post('/api/crudTipo', db.crudTipo);
 // router.put('/api/puppies/:id', db.updatePuppy);
 // router.delete('/api/puppies/:id', db.removePuppy);
+router.post('/api/crudMaterial', db.crudMaterial);
 
 
 module.exports = router;
