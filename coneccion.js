@@ -118,7 +118,7 @@ console.log(itemsPerPage);
 console.log(req.body);
 console.log(req.body.itemsPerPage);
 page2=page*itemsPerPage;
-db.any('SELECT m.idmaterial, m.idtipo, m.nombre, m.stock, m.fecha, m.estado, t.nombre nombretipo, t.fecha fechatipo, t.estado estadotipo FROM material m join tipo t on m.idtipo = t.idtipo LIMIT '+itemsPerPage+' OFFSET '+page2)
+db.any('SELECT m.idmaterial, m.idtipo, m.nombre, m.stock, m.fecha, m.estado, t.nombre nombretipo, t.fecha fechatipo, t.estado estadotipo FROM material m join tipo t on m.idtipo = t.idtipo where m.estado=1  LIMIT '+itemsPerPage+' OFFSET '+page2)
 .then(function (data) {
   res.status(200)
     .json({
