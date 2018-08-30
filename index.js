@@ -16,6 +16,8 @@ router.get('/api/getTipo/:id', db.getTipo);
 router.post('/api/crudTipo', db.crudTipo);
 // router.put('/api/puppies/:id', db.updatePuppy);
 // router.delete('/api/puppies/:id', db.removePuppy);
+router.post('/api/crudMaterial', db.crudMaterial);
 
-
+router.post('/api/getMateriales', db.getMateriales);
+router.post('/api/getTotalMateriales', db.getTotalMateriales);
 module.exports = router;
