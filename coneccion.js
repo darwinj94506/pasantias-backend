@@ -67,10 +67,7 @@ function getTipos(req, res, next) {
     var itemsPerPage=req.body.itemsPerPage;
     console.log(page);
     console.log(itemsPerPage);
-    //db.any('SELECT * FROM tipo LIMIT {'+itemsPerPage+'} OFFSET {('+page - 1+') * '+itemsPerPage+'}')
-    // [LIMIT { number | ALL }] [OFFSET number]
-    // db.any('SELECT * FROM tipo LIMIT 7 OFFSET 7')
-
+ 
     page2=page*itemsPerPage;
     db.any('SELECT * FROM tipo LIMIT '+itemsPerPage+' OFFSET '+page2)
       .then(function (data) {

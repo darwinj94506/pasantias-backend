@@ -12,7 +12,7 @@ router.post('/api/getTotalTipos', db.getTotalTipos);
 router.get('/api/getTipo/:id', db.getTipo); 
 
 
-// router.get('/api/puppies/:id', db.getSinglePuppy);
+// router.get('/api/puppies/:id', db.getSinglePuppy);git
 router.post('/api/crudTipo', db.crudTipo);
 // router.put('/api/puppies/:id', db.updatePuppy);
 // router.delete('/api/puppies/:id', db.removePuppy);
