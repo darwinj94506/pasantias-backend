@@ -110,6 +110,44 @@ function crudMaterial(req,res,next){
   });
 
 }
+function getMateriales(req, res, next){
+var page=req.body.page;
+var itemsPerPage=req.body.itemsPerPage;
+console.log(page);
+console.log(itemsPerPage);
+console.log(req.body);
+console.log(req.body.itemsPerPage);
+page2=page*itemsPerPage;
+db.any('SELECT m.idmaterial, m.idtipo, m.nombre, m.stock, m.fecha, m.estado, t.nombre nombretipo, t.fecha fechatipo, t.estado estadotipo FROM material m join tipo t on m.idtipo = t.idtipo LIMIT '+itemsPerPage+' OFFSET '+page2)
+.then(function (data) {
+  res.status(200)
+    .json({
+      status: 'success',
+      data: data,
+      message: 'Retrieved ALL tipos'
+    });
+})
+.catch(function (err) {
+  return next(err);
+});
+}
+function getTotalMateriales(req, res, next) {
+  db.any("select count(*)  from material where estado=1")
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Se obtuvo el total de registros de la tabla tipo'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+}
+
+
+
 module.exports = {
   getTipos: getTipos,
   getTipo:getTipo,
@@ -117,7 +155,9 @@ module.exports = {
   crudTipo: crudTipo,
   getTiposPaginacion: getTiposPaginacion,
   getTotalTipos:getTotalTipos,
-  crudMaterial: crudMaterial
+  crudMaterial: crudMaterial,
+  getMateriales:getMateriales,
+  getTotalMateriales:  getTotalMateriales
 // updatePuppy: updatePuppy,
 // removePuppy: removePuppy
 };
