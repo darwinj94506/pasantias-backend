@@ -31,6 +31,7 @@ function getTipos(req, res, next) {
       });
   }
 
+
   function getTipo(req, res, next){
     console.log(req);
     let id=req.params.id;
