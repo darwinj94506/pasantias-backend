@@ -42,12 +42,28 @@ function getTipos(req, res, next) {
         return next(err);
       });
   }
+  function getIdMaterial(req, res, next){
+    let nombreM=req.params.nombreM;
+    console.log(nombreM);
+    db.any("select idmaterial from material where nombre='"+nombreM+"'")
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Se obtuvo id del Material'
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+  }
 
 
   function getTipo(req, res, next){
     console.log(req);
     let id=req.params.id;
-    db.any('select * from tipo where idtipo='+id)
+    db.any("select * from tipo where idtipo="+id)
       .then(function (data) {
         res.status(200)
           .json({
@@ -110,6 +126,7 @@ function crudMaterial(req,res,next){
   });
 
 }
+
 function getMateriales(req, res, next){
 var page=req.body.page;
 var itemsPerPage=req.body.itemsPerPage;
@@ -157,7 +174,8 @@ module.exports = {
   getTotalTipos:getTotalTipos,
   crudMaterial: crudMaterial,
   getMateriales:getMateriales,
-  getTotalMateriales:  getTotalMateriales
+  getTotalMateriales:  getTotalMateriales,
+  getIdMaterial: getIdMaterial
 // updatePuppy: updatePuppy,
 // removePuppy: removePuppy
 };
