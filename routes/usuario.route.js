@@ -1,14 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var TipoController=require('./../controllers/tipo.controller');
+var UsuarioController=require('./../controllers/usuario.controller');
 
-router.post('/getTipos', TipoController.getTiposPaginacion); 
-router.post('/getTotalTipos', TipoController.getTotalTipos); 
-router.get('/getTipo/:id', TipoController.getTipo); 
-router.post('/crudTipo', TipoController.crudTipo);
-router.post('/crudMaterial', TipoController.crudMaterial);
-router.post('/getMateriales', TipoController.getMateriales);
-router.post('/getTotalMateriales', TipoController.getTotalMateriales);
+// router.post('/register', UsuarioController.registrarUsuario); 
+router.post('/crudUsuario', UsuarioController.crudUsuario); 
+router.post('/login', UsuarioController.login); 
+
+
+// router.post('/getTotalTipos', UsuarioController.getTotalTipos); 
+// router.get('/getTipo/:id', UsuarioController.getTipo); 
+// router.post('/crudTipo', UsuarioController.crudTipo);
+
 
 
 module.exports = router;

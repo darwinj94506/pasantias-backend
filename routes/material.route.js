@@ -9,5 +9,6 @@ var MaterialController=require('./../controllers/material.controller');
 router.post('/crudMaterial',MaterialController.crudMaterial);
 router.post('/getMateriales',MaterialController.getMateriales);
 router.post('/getTotalMateriales',MaterialController.getTotalMateriales);
+router.post('/getMaterialesSelect',MaterialController.getMaterialesSelect);
 
 module.exports = router;

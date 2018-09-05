@@ -10,6 +10,9 @@ var app = express();
 // var indexRouter=require('./index');
 var tipoRouter=require('./routes/tipo.route');
 var materialRouter=require('./routes/material.route');
+var usuarioRouter=require('./routes/usuario.route');
+var ingresoRouter=require('./routes/ingreso.route');
+var egresoRouter=require('./routes/egreso.route');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,7 +36,9 @@ app.use((req,res,next)=>{
 // app.use('/', indexRouter);
 app.use('/api',tipoRouter);
 app.use('/api',materialRouter);
-
+app.use('/api',usuarioRouter);
+app.use('/api',ingresoRouter);
+app.use('/api',egresoRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
