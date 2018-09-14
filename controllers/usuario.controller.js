@@ -20,6 +20,19 @@ function crudUsuario(req, res, next) {
         });
     })   
 }
+function getUsuariosSelect(req, res, next) {
+
+    var SQL = 'select * from usuario';
+    db.any(SQL)
+    .then(function (data) {
+        res.status(200)
+        .json(data);
+    })
+    .catch(function (err) {
+        return next(err);
+    });
+
+}
 
 function login(req,res){
     var params=req.body;
@@ -65,5 +78,6 @@ function login(req,res){
 
 module.exports = {
   login:login,
-  crudUsuario:crudUsuario
+  crudUsuario:crudUsuario,
+  getUsuariosSelect:getUsuariosSelect
 };

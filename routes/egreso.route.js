@@ -7,7 +7,13 @@ var EgresoController=require('./../controllers/egreso.controller');
 // router.get('/getTipo/:id',MaterialController.getTipo); 
 // router.post('/crudTipo',MaterialController.crudTipo);
 // router.post('/crudIngreso',IngresoController.crudIngreso);
-router.post('/getegresos',EgresoController.getEgresosPaginacion);
-// router.post('/getTotalMateriales',MaterialController.getTotalMateriales);
+router.post('/crudEgreso',EgresoController.crudEgreso);
+router.post('/crudDetalle',EgresoController.crudDetalle);
+router.post('/getEgresosPaginacion',EgresoController.getEgresosPaginacion);
+router.post('/getTotalEgresos',EgresoController.getTotalEgresos);
+router.post('/validarDetalle',EgresoController.validarDetalle);
+router.get('/getStock/:idmaterial',EgresoController.getStock);
+router.get('/getDetalles/:idegreso',EgresoController.getDetalles);
+
 
 module.exports = router;
