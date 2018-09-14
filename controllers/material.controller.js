@@ -19,7 +19,8 @@ function getMaterialesSelect(req, res, next) {
  
 function crudMaterial(req,res,next){
   var SQL = 'select * from  fun_ime_material($1, $2, $3,$4);';
-  db.any(SQL,[req.body.idmaterial,req.body.idtipo,req.body.nombre, req.body.opcion])
+  console.log([req.body.idmaterial,req.body.idtipo,req.body.nombre, req.body.opcion]);
+  db.any(SQL,[req.body.idmaterial, req.body.idtipo, req.body.nombre, req.body.opcion])
   .then(function(data){
     res.status(200)
     .json(data);
@@ -33,7 +34,7 @@ function getMateriales(req, res, next){
 var page=req.body.page;
 var itemsPerPage=req.body.itemsPerPage;
 var page2=page*itemsPerPage;
-db.any('SELECT m.idmaterial, m.idtipo, m.nombre, m.stock, m.fecha, m.estado, t.nombre nombretipo, t.fecha fechatipo, t.estado estadotipo FROM material m join tipo t on m.idtipo = t.idtipo where m.estado=1  LIMIT '+itemsPerPage+' OFFSET '+page2)
+db.any('SELECT * FROM material_stock m LIMIT '+itemsPerPage+' OFFSET '+page2)
 .then(function (data) {
   res.status(200)
     .json({

@@ -5,6 +5,8 @@ var UsuarioController=require('./../controllers/usuario.controller');
 // router.post('/register', UsuarioController.registrarUsuario); 
 router.post('/crudUsuario', UsuarioController.crudUsuario); 
 router.post('/login', UsuarioController.login); 
+router.post('/getUsuarios',UsuarioController.getUsuarios);
+router.post('/getTotalUsuarios',UsuarioController.getTotalUsuarios)
 
 
 // router.post('/getTotalTipos', UsuarioController.getTotalTipos); 
