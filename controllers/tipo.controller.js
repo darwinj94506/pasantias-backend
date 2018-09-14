@@ -73,7 +73,7 @@ function getTipos(req, res, next) {
   
   function crudTipo(req, res, next) {
     console.log([req.body.idtipo,req.body.nombre,req.body.estado,req.body.fecha]);
-    var SQL = 'select * from  fun_ime_tipo($1, $2, $3);';
+    var SQL = 'select * from  fun_ime_tipo($1, $2,$3);';
     db.any(SQL, [req.body.idtipo,req.body.nombre,req.body.opcion])
     .then(function (data) {
       res.status(200)

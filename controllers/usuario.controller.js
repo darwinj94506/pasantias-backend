@@ -5,20 +5,29 @@ var jwt=require('../services/jwt');
 
 function crudUsuario(req, res, next) {
     console.log([req.body.idusuario,req.body.nombre,req.body.apellido,req.body.clave,req.body.rol,req.body.opcion]);
-    //convierte cifra la contraseña del usuario
     bcrypt.hash(req.body.clave,null,null,function(err,hash){
-        var clave_cifrada=hash;
-        console.log(clave_cifrada.length);
-        var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6);';
-        db.any(SQL, [req.body.idusuario,req.body.nombre,req.body.apellido,clave_cifrada,req.body.rol,req.body.opcion])
-        .then(function (data) {
-            res.status(200)
-            .json(data);
-        })
-        .catch(function (err) {
-            return next(err);
-        });
-    })   
+      var clave_cifrada=hash;
+      console.log(clave_cifrada);
+      var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6);';
+        db.any(SQL,[req.body.idusuario,req.body.nombre,req.body.apellido,clave_cifrada,req.body.rol,req.body.opcion])
+      .then(function (data) {
+      res.status(200)
+      .json(data);
+      })
+      .catch(function (err) {
+        return next(err);
+      });
+
+    }) 
+    // var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6);';
+    //  db.any(SQL,[req.body.idusuario,req.body.nombre,req.body.apellido,req.body.clave,req.body.rol,req.body.opcion])
+    //  .then(function (data) {
+    //  res.status(200)
+    // .json(data);
+    //  })
+    //  .catch(function (err) {
+    //   return next(err);
+    // });     
 }
 function getUsuariosSelect(req, res, next) {
 
@@ -33,6 +42,9 @@ function getUsuariosSelect(req, res, next) {
     });
 
 }
+
+
+
 
 function login(req,res){
     var params=req.body;
@@ -76,8 +88,41 @@ function login(req,res){
       });
   }
 
+  function getTotalUsuarios(req, res, next) {
+    db.any("select count(*)  from usuario where estado=1")
+      .then(function (data) {
+        res.status(200)
+          .json({
+            status: 'success',
+            data: data,
+            message: 'Se obtuvo el total de registros de usuarios'
+          });
+      })
+      .catch(function (err) {
+        return next(err);
+      });
+  }
+  function getUsuarios(req, res, next) {
+    var SQL = 'select * from  usuario where estado=1';
+    db.any(SQL, [req.body.idusuario,req.body.nombre,req.body.apellido,req.body.rol
+      ,req.body.clave,req.body.opcion])
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Se ejecuto '
+        });
+    })
+    .catch(function (err) {
+      return next(err);
+    });
+  }
+
 module.exports = {
   login:login,
   crudUsuario:crudUsuario,
-  getUsuariosSelect:getUsuariosSelect
+  getUsuariosSelect:getUsuariosSelect,
+  getTotalUsuarios:getTotalUsuarios,
+  getUsuarios:getUsuarios
 };

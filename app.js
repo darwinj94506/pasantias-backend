@@ -6,15 +6,15 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser=require('body-parser');
 var app = express();
-//cargar rutas
+//cargar rutas declaracion 
 // var indexRouter=require('./index');
 var tipoRouter=require('./routes/tipo.route');
 var materialRouter=require('./routes/material.route');
 var usuarioRouter=require('./routes/usuario.route');
 var ingresoRouter=require('./routes/ingreso.route');
 var egresoRouter=require('./routes/egreso.route');
-var garantiaRouter=require('./routes/garantia.route');
 var proveedorRouter=require('./routes/proveedor.route');
+var garantiaRouter=require('./routes/garantia.route');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -40,8 +40,8 @@ app.use('/api',materialRouter);
 app.use('/api',usuarioRouter);
 app.use('/api',ingresoRouter);
 app.use('/api',egresoRouter);
-app.use('/api',garantiaRouter);
 app.use('/api',proveedorRouter);
+app.use('/api',garantiaRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

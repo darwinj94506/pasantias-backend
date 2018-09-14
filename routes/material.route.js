@@ -10,5 +10,6 @@ router.post('/crudMaterial',MaterialController.crudMaterial);
 router.post('/getMateriales',MaterialController.getMateriales);
 router.post('/getTotalMateriales',MaterialController.getTotalMateriales);
 router.post('/getMaterialesSelect',MaterialController.getMaterialesSelect);
+router.post('/getListaTipos', MaterialController.getListaTipos);
 
 module.exports = router;
