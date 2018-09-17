@@ -84,6 +84,7 @@ function login(req,res){
             }    
       })
       .catch(function (err) {
+        console.log(err);
         return next(err);
       });
   }
@@ -118,6 +119,7 @@ function login(req,res){
       return next(err);
     });
   }
+  
 
 module.exports = {
   login:login,
