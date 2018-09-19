@@ -18,9 +18,9 @@ function getMaterialesSelect(req, res, next) {
   }
  
 function crudMaterial(req,res,next){
-  var SQL = 'select * from  fun_ime_material($1, $2, $3,$4);';
-  console.log([req.body.idmaterial,req.body.idtipo,req.body.nombre, req.body.opcion]);
-  db.any(SQL,[req.body.idmaterial, req.body.idtipo, req.body.nombre, req.body.opcion])
+  var SQL = 'select * from  fun_ime_material($1, $2, $3,$4,$5);';
+  console.log([req.body.idmaterial,req.body.idtipo,req.body.nombre, req.body.opcion,req.body.stockminimo]);
+  db.any(SQL,[req.body.idmaterial, req.body.idtipo, req.body.nombre, req.body.opcion,req.body.stockminimo])
   .then(function(data){
     res.status(200)
     .json(data);

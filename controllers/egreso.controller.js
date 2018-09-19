@@ -164,7 +164,7 @@ function getEgresosPaginacion(req, res, next) {
     // console.log(JSON.stringify(cuerpo));
     var lista='';
    for (var i in cuerpo){
-     lista+='select '+cuerpo[i].iddetalle+'::integer iddetalle, '+cuerpo[i].idegreso+'::integer idegreso,'+cuerpo[i].idingreso+'::integer idingreso,'+cuerpo[i].cantidad+'::integer cantidad,'+cuerpo[i].opcion+'::integer opcion,'+cuerpo[i].idmaterial+'::integer idmaterial';
+     lista+='select '+cuerpo[i].idegreso+'::integer idegreso,'+cuerpo[i].idingreso+'::integer idingreso,'+cuerpo[i].cantidad+'::integer cantidad,'+cuerpo[i].opcion+'::integer opcion,'+cuerpo[i].idmaterial+'::integer idmaterial';
       if(i==(cuerpo.length-1)){
         lista+=';';
       }else{
