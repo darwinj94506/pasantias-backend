@@ -106,7 +106,7 @@ function getEgresosPaginacion(req, res, next) {
   console.log(itemsPerPage);
   var page2=page*itemsPerPage;
   console.log(page2);
-  db.any('select e.idegreso, e.idusuario, u.nombre usuario, e.idsolicitante, s.nombre solicitante, e.memorando, e.fecha, e.observacion, e.estado from egreso e join usuario u on e.idusuario = u.idusuario join usuario s on e.idsolicitante = s.idusuario ORDER BY fecha DESC LIMIT '+itemsPerPage+' OFFSET '+page2)
+  db.any('select e.idegreso, e.idusuario, u.nombre usuario, e.idsolicitante,s.nombre nombre, s.apellido apellido, e.memorando, e.fecha, e.observacion, e.estado from egreso e join usuario u on e.idusuario = u.idusuario join usuario s on e.idsolicitante = s.idusuario ORDER BY fecha DESC LIMIT '+itemsPerPage+' OFFSET '+page2)
     .then(function (data) {
       res.status(200)
         .json({
