@@ -1,7 +1,7 @@
 'use strict'
 var db=require('./../bdd.coneccion');
 
-function getTipos(req, res, next) {
+function getTiposSelect(req, res, next) {
   console.log(db);
   db.any('select * from tipo')
     .then(function (data) {
@@ -85,7 +85,7 @@ function getTipos(req, res, next) {
   }
 
 module.exports = {
-  getTipos: getTipos,
+  getTiposSelect: getTiposSelect,
   getTipo:getTipo,
   crudTipo: crudTipo,
   getTiposPaginacion: getTiposPaginacion,

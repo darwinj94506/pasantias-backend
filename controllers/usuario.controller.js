@@ -21,6 +21,7 @@ function crudUsuario(req, res, next) {
       .json(data);
       })
       .catch(function (err) {
+        console.log(err);
         return next(err);
       });
 
@@ -58,7 +59,7 @@ function login(req,res){
     var id=params.idusuario;
     console.log(password);
     // console.log(params.gettoken);
-    db.any('select * from usuario where idusuario='+id)
+    db.any('select * from usuario where cedula=$1',id)
       .then(function (user) {
           console.log('usuario traido de bdd:'+user);// user array de json de la tabla usuarios
           if(user[0]==null){

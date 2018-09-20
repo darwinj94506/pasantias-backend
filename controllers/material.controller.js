@@ -2,8 +2,8 @@
 var db=require('./../bdd.coneccion');
 
 function getMaterialesSelect(req, res, next) {
-  console.log(db);
-  db.any('select * from material')
+  console.log(req.body.idtipo);
+  db.any('select * from material where idtipo=$1',req.body.idtipo)
     .then(function (data) {
       res.status(200)
         .json({

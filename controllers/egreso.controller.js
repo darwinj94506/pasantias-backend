@@ -145,11 +145,11 @@ function getEgresosPaginacion(req, res, next) {
     });
   }
 
-  function crudDetalle2(req, res, next) {
+  function crudDetalle(req, res, next) {
    console.log('llegue crud');
-   console.log([req.body.iddetalle,req.body.idegreso,req.body.idingreso,req.body.cantidad,req.body.opcion,req.body.idmaterial]);
-    var SQL = 'select * from  fun_ime_detalle_egreso($1, $2, $3, $4, $5,$6);';
-    db.any(SQL,[req.body.iddetalle,req.body.idegreso,req.body.idingreso,req.body.cantidad,req.body.opcion,req.body.idmaterial]).then(function (data) {
+   console.log([req.body.iddetalle,req.body.idegreso,req.body.idingreso,req.body.cantidad,req.body.opcion,req.body.idmaterial,req.body.estado]);
+    var SQL = 'select * from  fun_ime_detalle_egreso($1, $2, $3, $4, $5,$6,$7);';
+    db.any(SQL,[req.body.iddetalle,req.body.idegreso,req.body.idingreso,req.body.cantidad,req.body.opcion,req.body.idmaterial,req.body.estado]).then(function (data) {
       res.status(200)
         .json(data);
     })
@@ -161,7 +161,7 @@ function getEgresosPaginacion(req, res, next) {
     });
   }
 
-  function crudDetalle(req, res, next) {
+  function crudDetalle2(req, res, next) {
     var cuerpo=req.body;
     // console.log(JSON.stringify(cuerpo));
     var lista='';
@@ -204,6 +204,7 @@ module.exports = {
   getEgresosPaginacion:getEgresosPaginacion,
   crudEgreso:crudEgreso,
   crudDetalle:crudDetalle,
+  crudDetalle2:crudDetalle2,
   getStock:getStock
  
 };
