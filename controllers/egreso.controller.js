@@ -80,7 +80,7 @@ var db=require('./../bdd.coneccion');
   function getDetalleEgreso(req, res, next) {
     var page=req.body.page;
     console.log(req.params.idegreso);
-    db.any('SELECT m.nombre material,i.serie,g.descripcion,p.nombre proveedor, d.cantidad,d.iddetalle,d.estado  FROM detalle_egreso d JOIN ingreso i ON i.idingreso = d.idingreso JOIN material m ON m.idmaterial = i.idmaterial JOIN garantia g ON g.idgarantia= i.idgarantia JOIN proveedor p ON p.idproveedor=g.idproveedor where d.idegreso=$1',req.params.idegreso)
+    db.any('SELECT m.nombre material,i.serie,g.descripcion,p.nombre proveedor, d.cantidad,d.iddetalle,d.estado  FROM detalle_egreso d JOIN ingreso i ON i.idingreso = d.idingreso JOIN material m ON m.idmaterial = i.idmaterial LEFT JOIN garantia g ON g.idgarantia= i.idgarantia LEFT JOIN proveedor p ON p.idproveedor=g.idproveedor where d.idegreso=$1',req.params.idegreso)
       .then(function (data) {
         res.status(200)
           .json({

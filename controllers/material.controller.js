@@ -16,6 +16,21 @@ function getMaterialesSelect(req, res, next) {
       return next(err);
     });
   }
+  function getMaterialesSelect2(req, res, next) {
+    console.log(req.body.idtipo);
+    db.any('select * from material')
+      .then(function (data) {
+        res.status(200)
+          .json({
+            status: 'success',
+            data: data,
+            message: 'Retrieved ALL tipos'
+          });
+      })
+      .catch(function (err) {
+        return next(err);
+      });
+    }
  
 function crudMaterial(req,res,next){
   var SQL = 'select * from  fun_ime_material($1, $2, $3,$4,$5);';
@@ -85,5 +100,7 @@ module.exports = {
   getListaTipos:getListaTipos,
   getTotalMateriales: getTotalMateriales,
   getMaterialesSelect:getMaterialesSelect,
+  getMaterialesSelect2:getMaterialesSelect2,
+
 
 };

@@ -22,19 +22,11 @@ function crudUsuario(req, res, next) {
       })
       .catch(function (err) {
         console.log(err);
-        return next(err);
+        return next(res.status(404));
       });
 
     }) 
-    // var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6);';
-    //  db.any(SQL,[req.body.idusuario,req.body.nombre,req.body.apellido,req.body.clave,req.body.rol,req.body.opcion])
-    //  .then(function (data) {
-    //  res.status(200)
-    // .json(data);
-    //  })
-    //  .catch(function (err) {
-    //   return next(err);
-    // });     
+   
 }
 function getUsuariosSelect(req, res, next) {
 
