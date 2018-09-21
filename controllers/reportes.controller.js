@@ -38,7 +38,7 @@ function getUsuariosSelect(req, res, next) {
   function getReporteIngreso(req, res, next) {
     var serie=req.body.serie;
     
-    var SQL = 'SELECT m.nombre material,i.serie,i.fecha, g.descripcion garantia,p.nombre proveedor,u.nombre usuario FROM ingreso i JOIN material m ON m.idmaterial = i.idmaterial LEFT JOIN garantia g ON g.idgarantia= i.idgarantia JOIN usuario u ON u.idusuario = i.idusuario LEFT JOIN proveedor p ON p.idproveedor=g.idproveedor where u.idusuario=$1 or i.serie=$2 or i.fecha BETWEEN $3 AND $4 ORDER BY I.FECHA DESC';
+    var SQL = 'SELECT m.nombre material,i.serie,i.fecha, g.descripcion garantia,p.nombre proveedor,u.nombre nusuario,u.apellido ausuario FROM ingreso i JOIN material m ON m.idmaterial = i.idmaterial LEFT JOIN garantia g ON g.idgarantia= i.idgarantia JOIN usuario u ON u.idusuario = i.idusuario LEFT JOIN proveedor p ON p.idproveedor=g.idproveedor where u.idusuario=$1 or i.serie=$2 or i.fecha BETWEEN $3 AND $4 ORDER BY I.FECHA DESC';
     db.any(SQL,[req.body.idusuario,req.body.serie,req.body.fecha1,req.body.fecha2])
     .then(function (data) {
       res.status(200)
