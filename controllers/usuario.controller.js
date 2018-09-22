@@ -186,12 +186,9 @@ function login(req,res){
                     .catch(function (err) {
                       res.status(err).send(err);
                     });
-                    //cc
 
                   })  
-                  //xxx
-                 
-                 
+
                 }else{
                 res.status(404).send({
                     message:'la contraseña no es correcta'

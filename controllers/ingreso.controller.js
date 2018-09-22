@@ -41,8 +41,7 @@ var db=require('./../bdd.coneccion');
     console.log(itemsPerPage);
     var page2=page*itemsPerPage;
     console.log(page2);
-    // db.any('SELECT m.idmaterial, m.idtipo, m.nombre, m.stock, m.fecha, m.estado, t.nombre nombretipo, t.fecha fechatipo, t.estado estadotipo FROM material m join tipo t on m.idtipo = t.idtipo where m.estado=1  LIMIT '+itemsPerPage+' OFFSET '+page2)
-    // db.any('SELECT * FROM ingreso ORDER BY Fecha DESC LIMIT '+itemsPerPage+' OFFSET '+page2)
+    
     db.any('SELECT  material.nombre nombrematerial, usuario.nombre nombreusuario, usuario.apellido, ingreso.fecha fechaingreso, cantidad FROM usuario join ingreso on ingreso.idusuario = usuario.idusuario join material on ingreso.idmaterial = material.idmaterial ORDER BY fechaingreso DESC LIMIT '+itemsPerPage+' OFFSET '+page2)
       .then(function (data) {
         res.status(200)
@@ -73,10 +72,7 @@ var db=require('./../bdd.coneccion');
   }
 
 module.exports = {
-//   getTipos: getTipos,
-//   getTipo:getTipo,
-//   crudTipo: crudTipo,
-//   getTiposPaginacion: getTiposPaginacion,
+
     getTotalIngresos:getTotalIngresos,
     getIngresosPaginacion:getIngresosPaginacion,
     crudIngreso:crudIngreso

@@ -54,7 +54,7 @@ var db=require('./../bdd.coneccion');
         })
         .catch(function (err) {
           console.log(err);
-          return next(err);
+          res.status(500).json(err)
         });
       }
    }
@@ -73,7 +73,7 @@ var db=require('./../bdd.coneccion');
           });
       })
       .catch(function (err) {
-        return next(err);
+        res.status(500).json(err)
       });
   }
 
@@ -88,7 +88,7 @@ var db=require('./../bdd.coneccion');
           });
       })
       .catch(function (err) {
-        return next(err);
+        res.status(500).json(err)
       });
   }
 
@@ -100,8 +100,6 @@ function getEgresosPaginacion(req, res, next) {
   console.log(itemsPerPage);
   var page2=page*itemsPerPage;
   console.log(page2);
-  // db.any('select e.idegreso, e.idusuario, u.nombre usuario, e.idsolicitante,s.nombre nombre, s.apellido apellido, e.memorando, e.fecha, e.observacion, e.estado from egreso e join usuario u on e.idusuario = u.idusuario join usuario s on e.idsolicitante = s.idusuario ORDER BY fecha DESC LIMIT '+itemsPerPage+' OFFSET '+page2)
-
   db.any('select e.idegreso, e.idusuario, u.nombre usuario, e.idsolicitante,s.nombre nombre, s.apellido apellido, e.memorando, e.fecha, e.observacion, e.estado from egreso e join usuario u on e.idusuario = u.idusuario join usuario s on e.idsolicitante = s.idusuario ORDER BY fecha DESC LIMIT '+itemsPerPage+' OFFSET '+page2)
     .then(function (data) {
       res.status(200)
@@ -110,7 +108,7 @@ function getEgresosPaginacion(req, res, next) {
         });
     })
     .catch(function (err) {
-      return next(err);
+      res.status(500).json(err)
     });
   }
   function getDetalles(req, res, next){
@@ -126,7 +124,7 @@ function getEgresosPaginacion(req, res, next) {
             });
         })
         .catch(function (err) {
-          return next(err);
+          res.status(500).json(err)
         });
   } 
  
@@ -141,7 +139,7 @@ function getEgresosPaginacion(req, res, next) {
         .json(data);
     })
     .catch(function (err) {
-      return next(err);
+      res.status(500).json(err)
     });
   }
 
@@ -154,16 +152,12 @@ function getEgresosPaginacion(req, res, next) {
         .json(data);
     })
     .catch(function (err) {
-      console.log('error:'+err);
-      console.log('idmaterial:'+req.body.idmaterial);
-      console.log("ha ocurrido un error");
-      return next(err);
+      res.status(500).json(err)
     });
   }
 
   function crudDetalle2(req, res, next) {
     var cuerpo=req.body;
-    // console.log(JSON.stringify(cuerpo));
     var lista='';
    for (var i in cuerpo){
      lista+='select '+cuerpo[i].idegreso+'::integer idegreso,'+cuerpo[i].idingreso+'::integer idingreso,'+cuerpo[i].cantidad+'::integer cantidad,'+cuerpo[i].opcion+'::integer opcion,'+cuerpo[i].idmaterial+'::integer idmaterial';
@@ -177,19 +171,12 @@ function getEgresosPaginacion(req, res, next) {
         console.log(lista); 
         db.any('select * from  fun_ime_detalle_egreso2($1, $2);',[lista,cuerpo.length])
         .then(function (data) {
-          console.log('data:'+data);
-          console.log(data);
+          
           res.status(200)
-          .json({
-          //  _info_id: data[0]._info_id,
-          //  _info_titulo: data[0]._info_titulo,
-          //  _info_desc: data[0]._info_desc,
-          //  _info_lista: JSON.parse(data[0]._info_lista)
-         });
+        .json(data);
         })
         .catch(function (err) {
-          console.log('error:'+err);
-          return next(err);
+          res.status(500).json(err)
         });
       }
    }

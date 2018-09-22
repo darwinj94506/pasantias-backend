@@ -7,7 +7,7 @@ var logger = require('morgan');
 var bodyParser=require('body-parser');
 var app = express();
 //cargar rutas declaracion 
-// var indexRouter=require('./index');
+
 var tipoRouter=require('./routes/tipo.route');
 var materialRouter=require('./routes/material.route');
 var usuarioRouter=require('./routes/usuario.route');
@@ -35,6 +35,8 @@ app.use((req,res,next)=>{
   res.header('Allow','GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
+app.use('/',express.static('client',{redirect:false}));
+
 //-----Rutas creadas -------- 
 // app.use('/', indexRouter);
 app.use('/api',tipoRouter);
@@ -45,6 +47,10 @@ app.use('/api',egresoRouter);
 app.use('/api',proveedorRouter);
 app.use('/api',garantiaRouter);
 app.use('/api',reportesRouter);
+
+app.get('*',function(req,res,next){
+	res.sendFile(path.resolve('client/index.html'));
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
