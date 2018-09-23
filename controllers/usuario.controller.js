@@ -22,34 +22,35 @@ function crudUsuario(req, res, next) {
       })
       .catch(function (err) {
         console.log(err);
-        return next(res.status(404));
+        res.status(500)
+        .json(err);
       });
     })  
 }
 
-function crudUsuario(req, res, next) {
-  console.log([req.body.idusuario,req.body.nombre,req.body.apellido,req.body.clave,req.body.cedula,req.body.rol,req.body.opcion]);
-  bcrypt.hash(req.body.clave,null,null,function(err,hash){
-    var clave_cifrada=hash;
-    console.log(clave_cifrada);
-    var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6, $7);'
-      db.any(SQL,[req.body.idusuario,
-        req.body.nombre,
-        req.body.apellido,
-        clave_cifrada,
-        req.body.cedula,
-        req.body.rol,
-        req.body.opcion])
-    .then(function (data) {
-    res.status(200)
-    .json(data);
-    })
-    .catch(function (err) {
-      console.log(err);
-      return next(res.status(404));
-    });
-  })  
-}
+// function crudUsuario(req, res, next) {
+//   console.log([req.body.idusuario,req.body.nombre,req.body.apellido,req.body.clave,req.body.cedula,req.body.rol,req.body.opcion]);
+//   bcrypt.hash(req.body.clave,null,null,function(err,hash){
+//     var clave_cifrada=hash;
+//     console.log(clave_cifrada);
+//     var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6, $7);'
+//       db.any(SQL,[req.body.idusuario,
+//         req.body.nombre,
+//         req.body.apellido,
+//         clave_cifrada,
+//         req.body.cedula,
+//         req.body.rol,
+//         req.body.opcion])
+//     .then(function (data) {
+//     res.status(200)
+//     .json(data);
+//     })
+//     .catch(function (err) {
+//       console.log(err);
+//       return next(res.status(404));
+//     });
+//   })  
+// }
 
 function getUsuariosSelect(req, res, next) {
 

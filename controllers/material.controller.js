@@ -3,7 +3,7 @@ var db=require('./../bdd.coneccion');
 
 function getMaterialesSelect(req, res, next) {
   console.log(req.body.idtipo);
-  db.any('select * from material where idtipo=$1',req.body.idtipo)
+  db.any('select * from material where idtipo=$1 AND estado=1 ',req.body.idtipo)
     .then(function (data) {
       res.status(200)
         .json({
@@ -18,7 +18,7 @@ function getMaterialesSelect(req, res, next) {
   }
   function getMaterialesSelect2(req, res, next) {
     console.log(req.body.idtipo);
-    db.any('select * from material')
+    db.any('select * from material where estado=1')
       .then(function (data) {
         res.status(200)
           .json({
@@ -77,27 +77,27 @@ function getTotalMateriales(req, res, next) {
       return next(err);
     });
 }
-function getListaTipos(req,res,next){
-  db.any('select * from tipo')
-  .then(function(data){
-    res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Se obtuvo los nombre de los tipos de materiales'
-        });
-  })
-  .catch(function (err) {
-    return next(err);
-  });
-}
+// function getListaTipos(req,res,next){
+//   db.any('select * from tipo where estado=1')
+//   .then(function(data){
+//     res.status(200)
+//         .json({
+//           status: 'success',
+//           data: data,
+//           message: 'Se obtuvo los nombre de los tipos de materiales'
+//         });
+//   })
+//   .catch(function (err) {
+//     return next(err);
+//   });
+// }
 
 
 
 module.exports = {
   crudMaterial: crudMaterial,
   getMateriales:getMateriales,
-  getListaTipos:getListaTipos,
+  // getListaTipos:getListaTipos,
   getTotalMateriales: getTotalMateriales,
   getMaterialesSelect:getMaterialesSelect,
   getMaterialesSelect2:getMaterialesSelect2,

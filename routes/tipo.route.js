@@ -6,6 +6,6 @@ router.post('/getTipos', TipoController.getTiposPaginacion);
 router.post('/getTotalTipos', TipoController.getTotalTipos); 
 router.get('/getTipo/:id', TipoController.getTipo); 
 router.post('/crudTipo', TipoController.crudTipo);
-router.get('/getTiposSelect', TipoController.getTiposPaginacion); 
+router.get('/getTiposSelect', TipoController.getTiposSelect); 
 
 module.exports = router;

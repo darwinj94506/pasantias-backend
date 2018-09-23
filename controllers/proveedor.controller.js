@@ -4,7 +4,7 @@ var db=require('./../bdd.coneccion');
   function getProveedoresSelect(req, res, next){
     console.log(req);
     let id=req.params.id;
-    db.any('select * from proveedor')
+    db.any('select * from proveedor where estado=1')
       .then(function (data) {
         res.status(200)
           .json({

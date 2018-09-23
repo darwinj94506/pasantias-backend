@@ -3,7 +3,7 @@ var db=require('./../bdd.coneccion');
 
 function getTiposSelect(req, res, next) {
   console.log(db);
-  db.any('select * from tipo')
+  db.any('select * from tipo where estado=1')
     .then(function (data) {
       res.status(200)
         .json({
