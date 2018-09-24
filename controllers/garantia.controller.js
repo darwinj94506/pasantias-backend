@@ -9,8 +9,9 @@ function crudGarantia(req,res,next){
     res.status(200)
     .json(data);
   })
-  .catch(function(err){
-    return next(err);
+  .catch(function (err) {
+    console.log(err);
+    res.status(400).json(err)
   });
 }
 
@@ -21,7 +22,7 @@ var itemsPerPage=req.body.itemsPerPage;
 var page2=page*itemsPerPage;
 db.any('SELECT g.idgarantia, g.idproveedor, g.descripcion, g.estado, p.nombre nombreproveedor, p.estado estadoproveedor FROM garantia g join proveedor p on g.idproveedor = p.idproveedor where g.estado=1  LIMIT '+itemsPerPage+' OFFSET '+page2)
 .then(function (data) {
-  res.status(200)
+  res.status(400)
     .json({
       status: 'success',
       data: data,
@@ -29,7 +30,8 @@ db.any('SELECT g.idgarantia, g.idproveedor, g.descripcion, g.estado, p.nombre no
     });
 })
 .catch(function (err) {
-  return next(err);
+  console.log(err);
+  res.status(400).json(err)
 });
 }
 
@@ -44,7 +46,8 @@ function getTotalGarantias(req, res, next) {
         });
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
 }
 function getListaProveedores(req,res,next){
@@ -58,7 +61,8 @@ function getListaProveedores(req,res,next){
         });
   })
   .catch(function (err) {
-    return next(err);
+    console.log(err);
+    res.status(400).json(err)
   });
 }
 
@@ -75,7 +79,8 @@ function getGarantiaSelect(req, res, next){
         });
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
 }
 

@@ -13,7 +13,8 @@ function getTiposSelect(req, res, next) {
         });
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
   }
   function getTotalTipos(req, res, next) {
@@ -27,7 +28,8 @@ function getTiposSelect(req, res, next) {
           });
       })
       .catch(function (err) {
-        return next(err);
+        console.log(err);
+        res.status(400).json(err)
       });
   }
 
@@ -45,7 +47,8 @@ function getTiposSelect(req, res, next) {
           });
       })
       .catch(function (err) {
-        return next(err);
+        console.log(err);
+        res.status(400).json(err)
       });
   }
   
@@ -67,7 +70,8 @@ function getTiposSelect(req, res, next) {
           });
       })
       .catch(function (err) {
-        return next(err);
+        console.log(err);
+        res.status(400).json(err)
       });
     }
   
@@ -80,7 +84,8 @@ function getTiposSelect(req, res, next) {
         .json(data);
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
   }
 

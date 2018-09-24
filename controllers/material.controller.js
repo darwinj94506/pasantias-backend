@@ -13,7 +13,8 @@ function getMaterialesSelect(req, res, next) {
         });
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
   }
   function getMaterialesSelect2(req, res, next) {
@@ -28,7 +29,8 @@ function getMaterialesSelect(req, res, next) {
           });
       })
       .catch(function (err) {
-        return next(err);
+        console.log(err);
+        res.status(400).json(err)
       });
     }
  
@@ -40,8 +42,9 @@ function crudMaterial(req,res,next){
     res.status(200)
     .json(data);
   })
-  .catch(function(err){
-    return next(err);
+  .catch(function (err) {
+    console.log(err);
+    res.status(400).json(err)
   });
 }
 
@@ -59,7 +62,8 @@ db.any('SELECT * FROM material_stock m LIMIT '+itemsPerPage+' OFFSET '+page2)
     });
 })
 .catch(function (err) {
-  return next(err);
+  console.log(err);
+  res.status(400).json(err)
 });
 }
 
@@ -74,30 +78,14 @@ function getTotalMateriales(req, res, next) {
         });
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
 }
-// function getListaTipos(req,res,next){
-//   db.any('select * from tipo where estado=1')
-//   .then(function(data){
-//     res.status(200)
-//         .json({
-//           status: 'success',
-//           data: data,
-//           message: 'Se obtuvo los nombre de los tipos de materiales'
-//         });
-//   })
-//   .catch(function (err) {
-//     return next(err);
-//   });
-// }
-
-
 
 module.exports = {
   crudMaterial: crudMaterial,
   getMateriales:getMateriales,
-  // getListaTipos:getListaTipos,
   getTotalMateriales: getTotalMateriales,
   getMaterialesSelect:getMaterialesSelect,
   getMaterialesSelect2:getMaterialesSelect2,

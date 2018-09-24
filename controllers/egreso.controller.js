@@ -25,7 +25,8 @@ var db=require('./../bdd.coneccion');
           data:data
       })
       .catch(function (err) {
-        return next(err);
+        console.log(err);
+        res.status(500).json(err)
       });
   }
 

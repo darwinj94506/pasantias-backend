@@ -12,7 +12,8 @@ function getUsuariosSelect(req, res, next) {
         .json(data);
     })
     .catch(function (err) {
-        return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
 }
 //egresos reporte
@@ -31,15 +32,15 @@ function getUsuariosSelect(req, res, next) {
     })
     .catch(function (err) {
       console.log(err);
-      return next(err);
+      res.status(400).json(err)
     });
   }
   //ingresos
   function getReporteIngreso(req, res, next) {
     var serie=req.body.serie;
     
-    var SQL = 'SELECT m.nombre material,i.serie,i.fecha, g.descripcion garantia,p.nombre proveedor,u.nombre nusuario,u.apellido ausuario FROM ingreso i JOIN material m ON m.idmaterial = i.idmaterial LEFT JOIN garantia g ON g.idgarantia= i.idgarantia JOIN usuario u ON u.idusuario = i.idusuario LEFT JOIN proveedor p ON p.idproveedor=g.idproveedor where u.idusuario=$1 or i.serie=$2 or i.fecha BETWEEN $3 AND $4 ORDER BY I.FECHA DESC';
-    db.any(SQL,[req.body.idusuario,req.body.serie,req.body.fecha1,req.body.fecha2])
+    var SQL = 'SELECT m.nombre material,i.serie,i.fecha, g.descripcion garantia,p.nombre proveedor,u.nombre nusuario,u.apellido ausuario FROM ingreso i JOIN material m ON m.idmaterial = i.idmaterial LEFT JOIN garantia g ON g.idgarantia= i.idgarantia JOIN usuario u ON u.idusuario = i.idusuario LEFT JOIN proveedor p ON p.idproveedor=g.idproveedor where u.cedula=$1 or i.serie=$2 or i.fecha BETWEEN $3 AND $4 ORDER BY I.FECHA DESC';
+    db.any(SQL,[req.body.ucedula,req.body.serie,req.body.fecha1,req.body.fecha2])
     .then(function (data) {
       res.status(200)
         .json({
@@ -50,7 +51,7 @@ function getUsuariosSelect(req, res, next) {
     })
     .catch(function (err) {
       console.log(err);
-      return next(err);
+      res.status(400).json(err)
     });
   }
   

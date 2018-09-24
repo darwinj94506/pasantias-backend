@@ -14,13 +14,10 @@ var db=require('./../bdd.coneccion');
           });
       })
       .catch(function (err) {
-        return next(err);
+        console.log(err);
+        res.status(400).json(err)
       });
   }
-  
- 
-    
-
   
   function crudProveedor(req, res, next) {
     console.log([req.body.idproveedor,req.body.nombre,req.body.estado,]);
@@ -32,10 +29,10 @@ var db=require('./../bdd.coneccion');
         .json( data);
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
   }
- 
 
   function getProveedores(req, res, next) {
     var SQL = 'select * from  proveedor where estado=1';
@@ -52,7 +49,8 @@ var db=require('./../bdd.coneccion');
         });
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
   }
 
@@ -67,7 +65,8 @@ var db=require('./../bdd.coneccion');
           });
       })
       .catch(function (err) {
-        return next(err);
+        console.log(err);
+        res.status(400).json(err)
       });
   }
   

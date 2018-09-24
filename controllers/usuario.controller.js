@@ -5,17 +5,14 @@ var jwt=require('../services/jwt');
 
 function crudUsuario(req, res, next) {
     console.log([req.body.idusuario,req.body.nombre,req.body.apellido,req.body.clave,req.body.cedula,req.body.rol,req.body.opcion]);
-    bcrypt.hash(req.body.clave,null,null,function(err,hash){
-      var clave_cifrada=hash;
-      console.log(clave_cifrada);
-      var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6, $7);'
-        db.any(SQL,[req.body.idusuario,
-          req.body.nombre,
-          req.body.apellido,
-          clave_cifrada,
-          req.body.cedula,
-          req.body.rol,
-          req.body.opcion])
+    var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6, $7);'
+    db.any(SQL,[req.body.idusuario,
+      req.body.nombre,
+      req.body.apellido,
+      req.body.clave,
+      req.body.cedula,
+      req.body.rol,
+      req.body.opcion])
       .then(function (data) {
       res.status(200)
       .json(data);
@@ -25,44 +22,18 @@ function crudUsuario(req, res, next) {
         res.status(500)
         .json(err);
       });
-    })  
 }
 
-// function crudUsuario(req, res, next) {
-//   console.log([req.body.idusuario,req.body.nombre,req.body.apellido,req.body.clave,req.body.cedula,req.body.rol,req.body.opcion]);
-//   bcrypt.hash(req.body.clave,null,null,function(err,hash){
-//     var clave_cifrada=hash;
-//     console.log(clave_cifrada);
-//     var SQL = 'select * from  fun_ime_usuario($1, $2, $3, $4, $5, $6, $7);'
-//       db.any(SQL,[req.body.idusuario,
-//         req.body.nombre,
-//         req.body.apellido,
-//         clave_cifrada,
-//         req.body.cedula,
-//         req.body.rol,
-//         req.body.opcion])
-//     .then(function (data) {
-//     res.status(200)
-//     .json(data);
-//     })
-//     .catch(function (err) {
-//       console.log(err);
-//       return next(res.status(404));
-//     });
-//   })  
-// }
 
 function getUsuariosSelect(req, res, next) {
 
-    var SQL = 'select * from usuario';
+    var SQL = 'select * from usuario where estado=1';
     db.any(SQL)
     .then(function (data) {
         res.status(200)
         .json(data);
     })
-    .catch(function (err) {
-        return next(err);
-    });
+   c
 
 }
 
@@ -87,9 +58,9 @@ function login(req,res){
             });     
             }else{
                 var user=user[0];
-            bcrypt.compare(password,user.clave,(err,check)=>{
-                console.log(check);
-                if(check){
+                console.log(user.clave+' '+password);
+                
+                if(password == user.clave){
                     if(params.gettoken){
                         res.status(200).send({
                         token:jwt.createToken(user)
@@ -103,10 +74,11 @@ function login(req,res){
                     message:'la contraseña no es correcta'
                 });
                 }
-                })
+                
             }    
       })
       .catch(function (err) {
+        console.log(err);
         res.status(404).send({
           message:err
          });
@@ -124,7 +96,8 @@ function login(req,res){
           });
       })
       .catch(function (err) {
-        return next(err);
+        console.log(err);
+        res.status(400).json(err)
       });
   }
   function getUsuarios(req, res, next) {
@@ -140,13 +113,12 @@ function login(req,res){
         });
     })
     .catch(function (err) {
-      return next(err);
+      console.log(err);
+      res.status(400).json(err)
     });
   }
   function cambiarClave(req,res,next){
-    console.log("eeee");
     console.log(req.body);
-
     var params=req.body;
     var clave=params.clave;
     var nuevaClave=params.nuevaClave;
@@ -155,6 +127,7 @@ function login(req,res){
     db.any('select * from usuario where idusuario=$1',id)
       .then(function (user) {
           console.log('usuario traido de bdd cc:'+user);// user array de json de la tabla usuarios
+          console.log(user[0]);
           if(user[0]==null){
             res.status(200)
             .json({
@@ -164,42 +137,27 @@ function login(req,res){
             });     
             }else{
                 var user=user[0];
-                bcrypt.compare(clave,user.clave,(err,check)=>{ //compara la contraseña que viene encriptada
-                console.log('coincide contarseñas'+check);
-                if(check){
-                  //Encriptar y guardar la nueva clave 
-                  console.log("nueva clave"+nuevaClave);
-                  bcrypt.hash(nuevaClave,null,null,function(err,hash){
-                    var clave_cifrada=hash;
-                    console.log('nueva clave encriptad'+clave_cifrada);
-                    //cc
+                if(user.clave === clave){ 
                   var SQL = 'update usuario set clave=$1 where idusuario=$2';
-                    db.any(SQL, [clave_cifrada,id])
-                    .then(function (data) {
-                      console.log(data);
-                      res.status(200)
-                        .json({
-                          status: 'success',
-                          data: data
-                        
-                        });
-                    })
-                    .catch(function (err) {
-                      res.status(err).send(err);
-                    });
-
-                  })  
-
-                }else{
-                res.status(404).send({
-                    message:'la contraseña no es correcta'
-                });
+                  db.any(SQL, [nuevaClave,id])
+                  .then(function (data) {
+                    console.log(data);
+                    res.status(200)
+                      .json({
+                        status: 'success',
+                        data: data
+                      });
+                  })
+                  .catch(function (err) {
+                    res.status(404).send(err);
+                  });
+               
                 }
-                })
             }    
       })
       .catch(function (err) {
-        res.status(404).send({
+        console.log(err);
+        res.status(500).send({
           message:err
          });
       });
