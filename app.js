@@ -35,7 +35,7 @@ app.use((req,res,next)=>{
   res.header('Allow','GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-app.use('/',express.static('client',{redirect:false}));
+// app.use('/',express.static('client',{redirect:false}));
 
 //-----Rutas creadas -------- 
 // app.use('/', indexRouter);
@@ -48,9 +48,9 @@ app.use('/api',proveedorRouter);
 app.use('/api',garantiaRouter);
 app.use('/api',reportesRouter);
 
-app.get('*',function(req,res,next){
-	res.sendFile(path.resolve('client/index.html'));
-})
+// app.get('*',function(req,res,next){
+// 	res.sendFile(path.resolve('client/index.html'));
+// })
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -20,9 +20,11 @@ function getGarantias(req, res, next){
 var page=req.body.page;
 var itemsPerPage=req.body.itemsPerPage;
 var page2=page*itemsPerPage;
+console.log("getgarantias");
+
 db.any('SELECT g.idgarantia, g.idproveedor, g.descripcion, g.estado, p.nombre nombreproveedor, p.estado estadoproveedor FROM garantia g join proveedor p on g.idproveedor = p.idproveedor where g.estado=1  LIMIT '+itemsPerPage+' OFFSET '+page2)
 .then(function (data) {
-  res.status(400)
+  res.status(200)
     .json({
       status: 'success',
       data: data,
@@ -31,6 +33,7 @@ db.any('SELECT g.idgarantia, g.idproveedor, g.descripcion, g.estado, p.nombre no
 })
 .catch(function (err) {
   console.log(err);
+
   res.status(400).json(err)
 });
 }
