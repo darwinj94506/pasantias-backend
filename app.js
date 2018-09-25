@@ -6,8 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser=require('body-parser');
 var app = express();
-//cargar rutas declaracion 
-
+//cargar rutas declaracion
 var tipoRouter=require('./routes/tipo.route');
 var materialRouter=require('./routes/material.route');
 var usuarioRouter=require('./routes/usuario.route');
@@ -16,7 +15,6 @@ var egresoRouter=require('./routes/egreso.route');
 var proveedorRouter=require('./routes/proveedor.route');
 var garantiaRouter=require('./routes/garantia.route');
 var reportesRouter=require('./routes/reportes.route');
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -35,8 +33,8 @@ app.use((req,res,next)=>{
   res.header('Allow','GET, POST, OPTIONS, PUT, DELETE');
   next();
 });
-// app.use('/',express.static('client',{redirect:false}));
 
+app.use('/',express.static('client',{redirect:false}));
 //-----Rutas creadas -------- 
 // app.use('/', indexRouter);
 app.use('/api',tipoRouter);
@@ -48,14 +46,14 @@ app.use('/api',proveedorRouter);
 app.use('/api',garantiaRouter);
 app.use('/api',reportesRouter);
 
-// app.get('*',function(req,res,next){
-// 	res.sendFile(path.resolve('client/index.html'));
-// })
+app.get('*',function(req,res,next){
+	res.sendFile(path.resolve('client/index.html'));
+})
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
