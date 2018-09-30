@@ -54,9 +54,26 @@ function getUsuariosSelect(req, res, next) {
       res.status(400).json(err)
     });
   }
+  function getReporteMateriales(req, res, next){
+ 
+    db.any('SELECT * FROM material_stock')
+    .then(function (data) {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved all materiales'
+        });
+    })
+    .catch(function (err) {
+      console.log(err);
+      res.status(400).json(err)
+    });
+    }
   
 
 module.exports = {
     getEgresoDetalle:getEgresoDetalle,
-    getReporteIngreso:getReporteIngreso
+    getReporteIngreso:getReporteIngreso,
+    getReporteMateriales:getReporteMateriales
 };

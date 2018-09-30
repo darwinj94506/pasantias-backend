@@ -44,7 +44,7 @@ var db=require('./../bdd.coneccion');
     var page2=page*itemsPerPage;
     console.log(page2);
     
-    db.any(' SELECT  m.nombre nombrematerial, t.idtipo,t.nombre nombretipo, u.nombre nombreusuario, u.apellido,i.fecha fechaingreso,i.cantidad, i.descripcion,i.serie, p.nombre proveedor, g.descripcion garantia,g.idgarantia,p.idproveedor,m.idmaterial FROM usuario u join ingreso i on i.idusuario = u.idusuario join material m on i.idmaterial = m.idmaterial join tipo t on t.idtipo=m.idmaterial left join garantia g on g.idgarantia=i.idgarantia left join proveedor p on p.idproveedor=g.idproveedor ORDER BY fechaingreso DESC LIMIT '+itemsPerPage+' OFFSET '+page2)
+    db.any('SELECT  m.nombre material,m.nombre nombrematerial, t.idtipo,t.nombre nombretipo, u.nombre nombreusuario,u.apellido,i.fecha fechaingreso,i.cantidad, i.descripcion,i.serie, p.nombre proveedor,g.descripcion garantia,g.idgarantia,p.idproveedor,m.idmaterial FROM ingreso i join material m on i.idmaterial = m.idmaterial join tipo t on t.idtipo=m.idmaterial left join garantia g on g.idgarantia=i.idgarantia JOIN usuario u ON u.idusuario = i.idusuario left join proveedor p on p.idproveedor=g.idproveedor ORDER BY fechaingreso DESC LIMIT '+itemsPerPage+' OFFSET '+page2)
       .then(function (data) {
         res.status(200)
           .json({
@@ -57,7 +57,10 @@ var db=require('./../bdd.coneccion');
         console.log(err);
         res.status(400).json(err)
       });
-    }
+    } 
+
+
+
   
   function crudIngreso(req, res, next) {
     console.log([req.body.idingreso,req.body.idusuario,

@@ -41,7 +41,6 @@ var db=require('./../bdd.coneccion');
       }else{
         lista+=' union ';
       }   
-    
       if(i==(cuerpo.length-1)){      
         db.any('select * from fun_ime_detalle_egreso_stock($1,$2);',[lista,cuerpo.length])
         .then(function (data) {
@@ -130,9 +129,6 @@ function getEgresosPaginacion(req, res, next) {
   } 
  
   function crudEgreso(req, res, next) {
-    console.log("xxx");
-    console.log([req.body.idegreso,req.body.idusuario,req.body.idsolicitante,
-      req.body.memorando,req.body.observacion]);
     var SQL = 'select * from  fun_ime_egreso($1, $2, $3, $4, $5, $6);';
     db.any(SQL,[req.body.idegreso,req.body.idusuario,req.body.idsolicitante,
       req.body.memorando,req.body.observacion,req.body.opcion]).then(function (data) {
@@ -145,7 +141,6 @@ function getEgresosPaginacion(req, res, next) {
   }
 
   function crudDetalle(req, res, next) {
-   console.log('llegue crud');
    console.log([req.body.iddetalle,req.body.idegreso,req.body.idingreso,req.body.cantidad,req.body.opcion,req.body.idmaterial,req.body.estado]);
     var SQL = 'select * from  fun_ime_detalle_egreso($1, $2, $3, $4, $5,$6,$7);';
     db.any(SQL,[req.body.iddetalle,req.body.idegreso,req.body.idingreso,req.body.cantidad,req.body.opcion,req.body.idmaterial,req.body.estado]).then(function (data) {

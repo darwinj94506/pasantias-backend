@@ -32,9 +32,11 @@ function getUsuariosSelect(req, res, next) {
     .then(function (data) {
         res.status(200)
         .json(data);
-    })
-   c
-
+    }).catch(function (err) {
+      console.log(err);
+      res.status(500)
+      .json(err);
+    });
 }
 
 
